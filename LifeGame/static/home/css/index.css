@@ -1,0 +1,55 @@
+body{
+	/*background-size: cover;*/
+	/*background-color:#2f3238;*/
+}
+.input_panel{
+	margin: 0 auto;
+	width: 35%;
+	margin-top:10px ;
+	clear: both;
+}
+.input_panel input{
+	display: inline-block;
+	width: 40%;
+	padding:10px;
+}
+#rows {
+	float: left;
+}
+#columns {
+	float: right;
+}
+.btn_panel {
+	clear: both;
+	width: 30%;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+#create,#start{
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #ddd;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	margin-top: 10px;
+	color: #2f3238;
+}
+#create{
+	float: left;
+	margin-left: 20%;
+}
+#start {
+	float:right;
+	margin-right: 20%;
+}
+.content {
+	width: 33%;
+	margin: 0 auto;
+	margin-top: 80px;
+}
+#lifeGame {
+	margin: 0 auto;
+	text-align: center;
+}

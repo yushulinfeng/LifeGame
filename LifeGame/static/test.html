@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" content="">
+  <title>测试登录</title>
+      <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+   <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+ 
+<br/><br/>
+<center>
+<form class="form-horizontal" role="form">
+         <button type="button" class="btn btn-default" id="login">测试</button>
+</form>
+</center>
+ 
+ <script>
+$('#login').click(function userLogin() {
+$.get("http://120.27.98.95/LifeGame/GameSetting", {
+	}, function(data, status) {
+		alert(data);
+	})
+});
+	$.get("http://120.27.98.95/LifeGame/test", {
+	}, function(data, status) {
+		alert(data);
+	})
+</script>
+
+</body>
+</html>
