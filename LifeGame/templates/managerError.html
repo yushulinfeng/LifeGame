@@ -1,0 +1,17 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>提交结果</title>
+<meta http-equiv="refresh" content="{{ time }};url={{ url }}">
+</head>
+<body>
+<center>
+<h2>
+<!-- 临时禁用字符转义，这样text中可以包含大小于号了 -->
+{% autoescape off %}
+{{ text }}
+{% endautoescape %}
+</h2>
+</center>
+</body>
+</html>

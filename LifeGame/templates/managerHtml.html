@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" content="">
+	<title>{{title}}</title>
+	
+	<link rel="stylesheet" href="http://120.27.98.95/StaticLib/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://120.27.98.95/StaticLib/css/fileinput.css">
+	<script src="http://120.27.98.95/StaticLib/js/bootstrap.min.js"></script>
+	<script src="http://120.27.98.95/StaticLib/js/jquery.min.js"></script>
+	<script src="http://120.27.98.95/StaticLib/js/fileinput.js"></script>
+	<script src="http://120.27.98.95/StaticLib/js/fileinput_locale_zh.js"></script>
+</head>
+
+<body>
+
+<center>
+<h2><b>{{title}}</b></h2>
+
+<div class="col-sm-offset-2 col-sm-8">
+	<br/><b>文件列表</b>
+    <table id="table_add" class="table table-bordered" >
+    <tr><th class="col-sm-7">目录与文件</th><th class="col-sm-1">操作</th></tr>
+    <!-- 数组为空可直接if判断 -->
+	{% if not file_list %}<tr><td>空</td><td>无</td></tr>{% endif %}
+	{% for file in file_list %}
+		{% if file.ishtml %}
+			<tr><td>{{ file.filename }}</td><td><a target="_blank" href="{{ file.filename }}">查看</a></td></tr>
+		{% else %}
+			<tr><td>{{ file.filename }}</td><td>无</td></tr>
+		{% endif %}
+	{% endfor %}
+    </table>
+</div>
+
+<form method="post" enctype="multipart/form-data" action="managerHtml" >
+	<div class="col-sm-offset-4 col-sm-4">
+		<b>网站更新<br/>（将覆盖上一次更新）</b>
+		<input type="file" class="file" name="htmlZip" id="file_zip"/>请将网站压缩为ZIP文件然后上传<br/><br/>
+		<input type="submit" class="btn btn-primary" name="submit" value="上传"/>
+		<br/><br/>
+	</div>
+</form>
+
+</center>
+
+<script>
+$('#file_zip').fileinput(
+	{
+		language : 'zh', //设置语言
+		allowedFileExtensions : [ 'zip' ],//接收的文件后缀
+		showUpload : false, //是否显示上传按钮
+		showCaption : true,//是否显示标题
+		maxFileCount : 1, //同时最多上传1个文件
+		browseClass : "btn btn-primary", //按钮样式             
+		previewFileIcon : "<i class='glyphicon glyphicon-king'></i>",
+	});
+</script>
+ 
+</body>
+</html>
