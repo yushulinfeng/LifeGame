@@ -7,3 +7,5 @@ from django.db import models
 
 # Create your models here.
 from LifeGame.model.GameD import *
+from LifeGame.model.UserD import *
+

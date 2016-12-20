@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import url
-from django.contrib import admin
-from django.views import static, generic
+from django.views import static
 from LifeGame import views
 from LifeGame_Server import settings
 
@@ -27,9 +26,15 @@ urlpatterns = [
     url(r'^' + webhost + 'managerLogin$', views.managerLogin),
     url(r'^' + webhost + 'managerHtml$', views.managerHtml),
     # 接口
-    url(r'^' + webhost + 'test$', views.test),  # 测试
-    url(r'^' + webhost + 'GameSetting$', views.gameSetting),  # 测试
-    url(r'^' + webhost + 'GameStart$', views.gameStart),  # 测试
-    url(r'^' + webhost + 'GameRefresh$', views.gameRefresh),  # 测试
+    url(r'^' + webhost + 'test$', views.test),  # 
+    url(r'^' + webhost + 'GameSetting$', views.gameSetting),  # 
+    url(r'^' + webhost + 'GameStart$', views.gameStart),  # 
+    url(r'^' + webhost + 'GameRefresh$', views.gameRefresh),  # 
+    # 新的
+    url(r'^' + webhost + 'TokenGet$', views.tokenGet),  # 
+    url(r'^' + webhost + 'MatchFriend$', views.matchFriend),  # 
+    url(r'^' + webhost + 'MatchState$', views.matchState),  # 
+    url(r'^' + webhost + 'GameState$', views.gameState),  # 
+    url(r'^' + webhost + 'GameUpload$', views.gameUpload),  # 
 ]
 

@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
  
 from LifeGame.action.GameA import *
+from LifeGame.action.FriendA import *
 from LifeGame.action.ManagerA import *
 
 def homePage(request):
