@@ -15,18 +15,15 @@
          <button type="button" class="btn btn-default" id="login">测试</button>
 </form>
 </center>
- 
+ <div id="AAA">123</div>
  <script>
 $('#login').click(function userLogin() {
-$.get("http://120.27.98.95/LifeGame/GameSetting", {
+$.get("http://120.27.98.95/LifeGame/TokenGet?token=1480934405009836", {
 	}, function(data, status) {
+	    $('#AAA').text(data);
 		alert(data);
 	})
 });
-	$.get("http://120.27.98.95/LifeGame/test", {
-	}, function(data, status) {
-		alert(data);
-	})
 </script>
 
 </body>
