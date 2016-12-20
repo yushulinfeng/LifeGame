@@ -10,4 +10,5 @@ if __name__ == "__main__":
     print ("执行命令：" + doing + "\n")
     os.system(doing)
     print ("执行结束")
+    
  
