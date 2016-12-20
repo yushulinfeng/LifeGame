@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<title>LifeGame</title>
 		<link href="css/index.css" rel="stylesheet"/>
 		<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 		<script type="text/javascript">
@@ -10,7 +11,6 @@
 				this.speed = 100;
 				this.map = new Map(canvasId, rows, columns, livingCells);
 				this.intervalNumber = -1;
-				$("#speed").value = game.speed;
 				
 				window.onresize = function(){
 					windowWidth = window.innerWidth/2;
@@ -31,43 +31,8 @@
 					this.map = new Map(this.map.canvasId, this.map.rows, this.map.columns, 0);
 //					this.map.draw();
 				}
-				this.startGame = function() {
-					this.map.ajustMapSize();
-					this.loop(this.speed);
-					$("startTaggle").innerHTML = "Stop";
-					$("world_status").innerHTML = "Start";
-				}
-				this.loop = function(speed) {
-					this.map.render();
-					this.intervalNumber = setInterval(game.map.draw, speed == null ? 100 : speed);
-					// this.intervalNumber = setTimeout(game.loop, speed == null ? 100 : speed);
-				}
-				this.stop = function() {
-					clearInterval(this.intervalNumber);
-					// clearTimeout(this.intervalNumber);
-					this.intervalNumber = -1;
-					// this.map.render();
-					$("startTaggle").innerHTML = "Start";
-					$("world_status").innerHTML = "Stop";
-				}
-				this.changeCellStatus = function(cell) {
-					if (cell.currentStatus) {
-						cell.currentStatus = 0;
-						var dynamicArrayLength = game.map.dynamicArray.length;
-						for (var i = 0; i < dynamicArrayLength; ++i) {
-							if (cell.position.x == game.map.dynamicArray[i].position.x && cell.position.y == game.map.dynamicArray[i].position.y) {
-								this.map.dynamicArray.splice(i, 1);
-								break;
-							}
-						}
-					} else {
-						cell.currentStatus = 1;
-						this.map.dynamicArray.push(cell);
-					}
-					this.map.livingCells = game.map.dynamicArray.length;
-					this.map.render();
-				}
 			}
+		//坐标向量
 		var Vector2 = function(x,y){
 			this.x = x;
 			this.y = y;
@@ -126,9 +91,9 @@
 			//颜色列表	
 			this.colorList = {
 				dieCell : new Color('#D0D0D0'),
-				livingCell : new Color('#89d182'),
+				livingCell : new Color('#f6a1b6'),
 				border : new Color('#EBEBEB'),
-				background : new Color('#D0D0D0')
+				background : new Color('#d7e1e3')
 			};	
 			
 			this.fps = 0;//这个属性暂时没有用到
@@ -237,12 +202,6 @@
 			this.render();
 		}
 		
-		var random = function(min, max) {
-			return Math.round(Math.random() * (max - min ));
-		}
-		var random0_1 = function() {
-			return Math.round(Math.random());
-		}
 		//处理颜色值
 		function Color(r, g, b, a) {
 			if ( typeof arguments[0] == typeof arguments[1] && typeof arguments[1] == typeof arguments[2] && typeof arguments[2] == "number") {
@@ -292,18 +251,21 @@
 		</script>
 	</head>
 	<body>
+		<img src="img/logo4.png" width="32%" height="11%" style="position:absolute;left:45px;top:20px">   
+
 		<!--<>-->
 		<div class="feature-panel">
 			<div class="input_panel">
 				<input type="text" placeholder="rows" id="rows"/>
 				<input type="text" placeholder="columns" id="columns" />
-				<!--<input type="text" id="need_cells" />
-				<input type="text" id="living_cells" />
-				<input type="text" id="speed" />-->
 			</div>
 			<div class="btn_panel">
 				<div id="create">创建</div>
-				<div id="start">开始</div>
+				<div id="start">开始</div>			
+			</div>
+			<div class="btn_panel">
+				<div id="stop">暂停</div>
+				<div id="next">Next</div>
 			</div>
 		</div>
 		<div class="content">
@@ -364,8 +326,9 @@
 				}
 			});
 			//刷新地图
+			var interval;
 			$("#start").mouseup(function(){
-				window.setInterval(function refreshMap(){				
+				interval = window.setInterval(function refreshMap(){				
 					$.ajax({
 						type:"get",
 						url:"http://localhost:8000/LifeGame/GameRefresh",
@@ -385,10 +348,38 @@
 							}
 						}
 					});					
-				},500);			
-			});			
+				},300);			
+			});		
+			
+			//暂停
+			$("#stop").click(function(){
+				clearInterval(interval);
+			});
+			
+			//下一步
+			$("#next").click(function(){
+				clearInterval(interval);
+				$.ajax({
+					type:"get",
+					url:"http://localhost:8000/LifeGame/GameRefresh",
+					async:false,
+					dataType:'json',
+					success:function(data){	
+						lifeGame.clearMap();
+						for(var i = 1; i<=data.r; i++){//行数
+							for(var j = 1; j<=data.c; j++){//列数
+								if(data.d[i*j - 1]){
+//									console.log(data.d);
+//										lifeGame.map.dynamicArray.length = 0;			
+									lifeGame.map.dynamicArray.push(new Cell(new Vector2(i,j)));												
+								}
+							}							
+							lifeGame.map.refresh();
+						}
+					}
+				});	
+			});
 		}		
-		//这是某一块的表示
 		</script>
 	</body>
 </html>
